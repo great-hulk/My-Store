@@ -1,0 +1,9 @@
+<div *ngIf="product" class="card w-30 m-auto mt-10p ft-serif p-20p card-active">
+    <span class="ft-gray fw-600" >Product Name :</span><span class="ft-blue" > {{product.name}}</span><br>
+    <span class="ft-gray fw-600" >Price :</span><span class="ft-blue" > {{product.price | currency}}</span>
+    <p *ngIf="product.description" class="ft-light-gray"><span class="fw-600 ft-gray">Description : </span>{{ product.description }}</p>
+    <div class="mt-10p" >
+        <input type="button" class="normal-button" value="{{ alreadyInCart ? 'Already In Cart' : 'Add To Cart' }}" (click)="addToCart()"/>
+        <input type="button" class="normal-button ms-10p" value="Buy Now"/>
+    </div>
+</div>

@@ -1,0 +1,36 @@
+<div *ngIf="products.length > 0;else noItems" class="d-flex justify-content-center align-items-center pt-20p ft-serif flex-flow-column">
+    <div class="d-flex justify-content-between ft-blue w-30">
+        <span>{{ products.length}} Items</span>
+        <span>
+            <input type="button" value="Clear Cart" (click)="clearCart()" class="normal-button" />
+            <input type="button" [value]="'Checkout : ' + (cartPrice|currency : 'INR')" class="normal-button ms-10p" [routerLink]="['/checkout']" />
+        </span>
+    </div>
+    <div *ngFor="let product of products" class="card-active w-30 py-5p p-20p">
+        <h2 class="mt-0 ft-gray mb-10p" >{{product.name}}</h2>
+        <span class="ft-blue" >{{ product.price | currency : 'INR' }}</span>
+        <p *ngIf="product.description" class="ft-light-gray"><span class="fw-600 ft-gray">Description : </span>{{ product.description }}</p>
+        <span class="ft-gray" >Quantity : </span><input type="number" (change)="changeQuantity($event , product.id)" [value]="product.quantity" class="normal-input ms-10pmt-10p" />
+        <span class="ft-gray ms-10p" >Shipping Speed : </span>
+        <select class="normal-input w-auto" (change)="changeShipping($event , product.id )" >
+            <option *ngFor="let options of shippingOptions;let i=index" [value]="i" [selected]="product.shipping === i" >
+                {{ options.name + '-' }}{{ options.price | currency : 'INR' }}
+            </option>
+        </select>
+        <div class="mt-10p d-flex justify-content-between" >
+            <input type="button" value="Remove" class="normal-button" (click)="removeFromCart(product.id)" min="0" />
+            <div>
+                <span class="ft-blue fw-600">{{ (product.price || 0)*(product.quantity || 0)  | currency : 'INR' }}</span>
+                <span *ngIf="shippingOptions.length > 0" class="ft-blue fw-600" >+ {{ shippingOptions[product.shipping || 0].price | currency : 'INR' }}</span>
+            </div>           
+        </div>
+    </div>
+    <!-- <h4 class="text=align-right">Cart Price : {{ cartPrice | currency : 'INR' }}</h4> -->
+</div>
+<ng-template #noItems>
+    <div class="text-align-center ft-serif" >
+        <h3 class="ft-gray" >No Items In Cart</h3>
+        <input type="button" [routerLink]="['/products']" class="normal-button" value="See All Products" />
+    </div>
+</ng-template>
+

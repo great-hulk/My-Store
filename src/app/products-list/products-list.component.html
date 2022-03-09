@@ -1,0 +1,11 @@
+<div class="d-flex justify-content-center align-items-center pt-20p ft-serif flex-flow-column">
+    <div *ngFor="let product of products" class="card w-30 py-5p p-20p" [routerLink]="['/product',product.id]" >
+        <h2 class="mt-0 ft-gray mb-10p" >{{product.name}}</h2>
+        <span class="ft-blue" >{{ product.price | currency : 'INR' }}</span>
+        <div class="mt-10p" >
+            <input type="button" value="Share" class="normal-button me-10p" (click)="share($event)"/>
+            <app-product-alert *ngIf="product.price > 700" [product]="product" (notify)="Notify($event)"  ></app-product-alert>
+        </div>
+    </div>
+</div>
+

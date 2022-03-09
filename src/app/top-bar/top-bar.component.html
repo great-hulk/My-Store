@@ -1,0 +1,10 @@
+<div class="bg-blue w-100 h-auto text-align-center box-sizing-border-box" >
+    <ul class="m-0 p-0 list-style-none" >
+        <a *ngFor="let link of navigationLinks;let i=index" [routerLink]='link.url' routerLinkActive="activeLink" >
+            <li  class="d-inline-block ft-white px-10p fs-15p p-10p ft-serif" >
+                {{link.label}}
+                <div class="d-inline-block cart-number" *ngIf="i===navigationLinks.length-2" >{{cartProducts}}</div>
+            </li>
+        </a>
+    </ul>
+</div>

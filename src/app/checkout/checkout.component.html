@@ -1,0 +1,44 @@
+<div class="d-flex text-align-center ft-serif flex-flow-column" *ngIf="products.length && shippingOptions.length">
+    <h3 class="ft-blue">Summary <input type="button" class="normal-button ms-10p" value="Edit" [routerLink]="['/cart']" /></h3>
+    <div class="w-40 m-auto ft-blue d-flex justify-content-between my-10p" >
+        <span class="fw-600">Name</span>
+        <span class="fw-600">Quantity</span>
+        <span class="fw-600">Price</span> 
+        <span class="fw-600">Shipping</span>
+        <span class="fw-600">Cost</span>
+    </div>
+    <div *ngFor="let product of products" class="w-40 m-auto ft-blue d-flex justify-content-between bg-gray py-10p px-20p my-5p" >
+        <span>{{ product.name }}</span>
+        <span>{{ product.quantity }}</span>
+        <span>{{ product.price | currency:'INR' }}</span>
+        <span>{{ shippingOptions[product.shipping || 0].name }}</span> 
+        <span>{{ product.price * (product.quantity || 0) | currency:'INR' }}</span>
+    </div>
+    <h3 class="ft-blue" > Cart Price : {{ cartPrice.toString() |currency : 'INR' }} </h3>
+    <form *ngIf="!contactAdded;else payment" class="card-active w-40 p-20p m-auto d-flex flex-flow-column align-items-start mt-40p" [formGroup]="contactForm" (ngSubmit)="onSubmit()" >
+        <span class="ft-blue">Name</span>
+        <input type="text" class="normal-input w-95 d-inline-block my-10p" placeholder="Name" formControlName="Name" />
+        <span class="ft-blue">Email</span>
+        <input type="text" class="normal-input w-95 d-inline-block my-10p" placeholder="Email" formControlName="Email"  />
+        <span class="ft-blue">Mobile</span>
+        <input type="text" class="normal-input w-95 d-inline-block my-10p" placeholder="Mobile" formControlName="Mobile" />
+        <span class="ft-blue">Address</span>
+        <textarea type="text" class="normal-input w-95 h-120p d-inline-block my-10p" placeholder="Address" formControlName="Address" ></textarea>
+        <input type="submit" class="normal-button" value="Proceed To Payment" [disabled]="!contactForm.valid" />
+    </form>
+    <ng-template #payment>
+        <form *ngIf="!paymentAdded"  [formGroup]="paymentForm" (ngSubmit)="onSubmit()" class="card-active w-40 p-20p m-auto d-flex flex-flow-column align-items-start mt-40p" >
+            <span class="ft-blue">Card Number</span>
+            <input type="text" class="normal-input w-95 d-inline-block my-10p" placeholder="Card Number" formControlName="CardNumber" />
+            <span class="ft-blue">CVV</span>
+            <input type="text" class="normal-input w-95 d-inline-block my-10p" placeholder="CVV" formControlName="CVV"  />
+            <span class="ft-blue">Name On Card</span>
+            <input type="text" class="normal-input w-95 d-inline-block my-10p" placeholder="CVV" formControlName="Name"  />
+            <input type="submit" class="normal-button" [value]="'Place : ' + (cartPrice.toString() | currency:'INR')" [disabled]="!paymentForm.valid" />
+        </form>
+    </ng-template>
+    <div *ngIf="contactAdded && paymentAdded" >
+        <h3 class="ft-blue">Your Shipments Are On Way</h3>
+        <input type="button" class="normal-button" value="View All Shipments" routerLink="/shipments" />
+    </div>
+</div>

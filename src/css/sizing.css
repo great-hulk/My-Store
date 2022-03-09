@@ -1,0 +1,27 @@
+.h-auto{
+    height: auto;
+}
+
+.w-100{
+    width: 100%;
+}
+
+.box-sizing-border-box{
+    box-sizing: border-box;
+}
+
+.w-30{
+    width: 30%;
+}
+.w-auto{
+    width: auto!important;
+}
+.w-40{
+    width: 40%;
+}
+.w-95{
+    width: 95%!important;
+}
+.h-120p{
+    height: 120px;
+}

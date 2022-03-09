@@ -1,0 +1,28 @@
+.normal-button{
+    outline: none;
+    border: none;
+    padding: 5px 10px;
+    font-size: 12px;
+    background: #1976d2;
+    color: white;
+    font-family: sans-serif;
+    cursor: pointer;
+}
+.normal-button:hover{
+    background: #0e4072;
+}
+.normal-input{
+    border-radius: 5px;
+    outline: none;
+    border: 1px solid #1976d2;
+    width: 50px;
+    padding: 5px 10px;
+    color: #1976d2;
+    text-align: center;
+}
+.normal-input:focus{
+    border: 1px solid #0e4072;
+}
+.normal-button:disabled{
+    background: rgb(129, 129, 129);
+}

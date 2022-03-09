@@ -1,0 +1,31 @@
+<div class="w-40 card-active p-20p m-auto my-10p" *ngFor="let shipment of shipments" >
+    <div class="w-95 m-auto ft-blue d-flex justify-content-between my-10p" >
+        <span class="fw-600">Name</span>
+        <span class="fw-600">Quantity</span>
+        <span class="fw-600">Price</span> 
+        <span class="fw-600">Shipping</span>
+        <span class="fw-600">Cost</span>
+    </div>
+    <div *ngFor="let product of shipment.products" class="w-95 m-auto ft-blue d-flex justify-content-between bg-gray py-10p px-20p my-5p" >
+        <span>{{ product.name }}</span>
+        <span>{{ product.quantity }}</span>
+        <span>{{ product.price | currency:'INR' }}</span>
+        <span>{{ shippingOptions[product.shipping || 0].name }}</span> 
+        <span>{{ product.price * (product.quantity || 0) | currency:'INR' }}</span>
+    </div>
+    <div class="d-flex justify-content-between flex-flow-colum ft-serif fs-15p ft-gray" >
+        <div class="d-flex flex-flow-column" >
+            <h3 class="ft-blue">Contact</h3>
+            <span>Name : {{ shipment.contact.Name }}</span>
+            <span>Email : {{ shipment.contact.Email }}</span>
+            <span>Mobile: {{ shipment.contact.Mobile }}</span>
+            <span>Address : {{ shipment.contact.Address }}</span>
+        </div>
+        <div class="d-flex flex-flow-column" >
+            <h3 class="ft-blue">Payment</h3>
+            <span>Card Number : {{ shipment.payment.CardNumber }}</span>
+            <span>CVV : {{ shipment.payment.CVV }}</span>
+            <span>Name On Card : {{ shipment.contact.Name }}</span>
+        </div>
+    </div>
+</div>
