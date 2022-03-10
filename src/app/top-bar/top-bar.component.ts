@@ -7,12 +7,13 @@ import { CartService } from '../services/cart/cart.service';
   styleUrls: ['./top-bar.component.css'],
 
 })
-export class TopBarComponent{
+export class TopBarComponent implements OnInit{
 
     cartProducts : Number = 0;
 
-    constructor( private cartService : CartService ){
-      cartService.getNoOfProducts().subscribe(
+    constructor( private cartService : CartService ){}
+    ngOnInit(){
+      this.cartService.getProductCount().subscribe(
         nofProducts => this.cartProducts = nofProducts
       )
     }

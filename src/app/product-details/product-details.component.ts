@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CartService } from '../services/cart/cart.service';
-import { Product } from '../services/product/product.model';
+import { Product } from '../interfaces/product';
 import { ProductService } from '../services/product/product.service';
 
 @Component({
@@ -9,12 +9,14 @@ import { ProductService } from '../services/product/product.service';
   templateUrl: './product-details.component.html',
   styleUrls: ['./product-details.component.css']
 })
-export class ProductDetailsComponent{
+export class ProductDetailsComponent implements OnInit{
 
   product : Product | undefined = { id : -1, name : '', price : -1 };
   alreadyInCart : boolean = false;
 
-  constructor( private route : ActivatedRoute , private productService : ProductService , private cartService : CartService ){
+  constructor( private route : ActivatedRoute , private productService : ProductService , private cartService : CartService ){}
+
+  ngOnInit(){
     const productId : number = parseInt(this.route.snapshot.paramMap.get('productId') as string);
     let allProducts : Array<Product>;
     this.productService.getProducts().subscribe( products => {

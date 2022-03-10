@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { CartService } from '../services/cart/cart.service';
-import { CartProduct, Product } from '../services/product/product.model';
+import { Product } from '../interfaces/product';
+import { CartProduct } from '../interfaces/cart-product';
 
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
-  styleUrls: ['./cart.component.css']
 })
 export class CartComponent implements OnInit{
 
@@ -13,15 +13,14 @@ export class CartComponent implements OnInit{
   shippingOptions : any = [];
   cartPrice : number = 0;
 
-  constructor( private cartService : CartService ){
-      this.cartService.getShippingOptions().subscribe(shippingOptions => {
-        this.shippingOptions = shippingOptions
-      });
-      this.cartPrice = this.cartService.getCartPrice();
-   }
+  constructor( private cartService : CartService ){}
 
   ngOnInit(): void {
     this.products = this.cartService.getCartProducts();
+    this.cartService.getShippingOptions().subscribe(shippingOptions => {
+      this.shippingOptions = shippingOptions
+    });
+    this.cartPrice = this.cartService.getCartPrice();
   }
 
   changeQuantity(event : Event , productId : number) : void{

@@ -1,15 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CartService } from '../services/cart/cart.service';
-import { CartProduct } from '../services/product/product.model';
+import { CartProduct } from '../interfaces/cart-product';
 import { ShipmentService } from '../services/shipment/shipment.service';
 
 @Component({
   selector: 'app-checkout',
   templateUrl: './checkout.component.html',
-  styleUrls: ['./checkout.component.css']
 })
-export class CheckoutComponent{
+export class CheckoutComponent implements OnInit{
 
   products : Array<CartProduct> = []
   shippingOptions : Array<{ name:string , price : number}> = []
@@ -34,7 +33,9 @@ export class CheckoutComponent{
     }
   )
 
-  constructor( private cartService : CartService , private shipmentService : ShipmentService ){
+  constructor( private cartService : CartService , private shipmentService : ShipmentService ){}
+
+  ngOnInit(){
     this.products = this.cartService.getCartProducts();
     this.cartService.getShippingOptions().subscribe(shippingOptions => this.shippingOptions = shippingOptions);
     this.cartPrice = this.cartService.getCartPrice();

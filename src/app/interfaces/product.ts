@@ -5,7 +5,3 @@ export interface Product{
     description? : string,
 }
 
-export interface CartProduct extends Product{
-    quantity? : number,
-    shipping? : number
-}
